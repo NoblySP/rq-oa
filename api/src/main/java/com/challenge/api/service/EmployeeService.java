@@ -26,7 +26,6 @@ public class EmployeeService {
         employees.put(e2.getUuid(), e2);
     }
 
-
     public List<Employee> getAllEmployees() {
         return new ArrayList<>(employees.values());
     }

@@ -19,7 +19,9 @@ Here are a few of the technical decisions I made/considered while building this 
 
 ## Sample Requests
 
-This section provides sample `curl` commands to test and interact with the live API endpoints. The `-s` flag is used for silent mode (to hide the progress meter) and `-i` is used to include the HTTP response headers (e.g. HTTP status code).
+This section provides sample `curl` commands to test and interact with the live API endpoints. 
+
+Note: The `-s` flag is used for silent mode (to hide the progress meter) and `-i` is used to include the HTTP response headers (e.g. HTTP status code).
 
 ```bash
 # Successful HTTP GET Request to fetch all employees. You can pipe it to `jq` for better readability.

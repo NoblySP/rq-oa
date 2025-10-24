@@ -1,5 +1,7 @@
 package com.challenge.api.service;
 
+import com.challenge.api.exception.EmployeeAlreadyExistsException;
+import com.challenge.api.exception.EmployeeNotFoundException;
 import com.challenge.api.model.Employee;
 import com.challenge.api.model.EmployeeImpl;
 import java.time.Instant;
@@ -33,7 +35,7 @@ public class EmployeeService {
     public Employee getEmployeeByUuid(UUID uuid) {
         Employee employee = employees.get(uuid);
         if (employee == null) {
-            throw new RuntimeException("Employee not found");
+            throw new EmployeeNotFoundException("Employee not found with UUID: " + uuid);
         }
         return employee;
     }
@@ -43,7 +45,7 @@ public class EmployeeService {
         if (newEmployee.getUuid() == null) {
             newEmployee.setUuid(UUID.randomUUID());
         } else if (employees.containsKey(newEmployee.getUuid())) {
-            throw new RuntimeException("Employee UUID already exists");
+            throw new EmployeeAlreadyExistsException("Employee UUID already exists: " + newEmployee.getUuid());
         }
 
         employees.put(newEmployee.getUuid(), newEmployee);

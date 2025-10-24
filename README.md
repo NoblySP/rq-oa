@@ -1,5 +1,24 @@
 # ReliaQuest's Entry-Level Java Challenge
 
+## Design Decisions
+
+Here are a few of the technical decisions I made/considered while building this project:
+
+* **Used `HashMap` instead of `List` for the database**
+    * I used a `HashMap<UUID, Employee>` to store the mock data instead of a simple `List`. This provides much better performance ($O(1)$) for the `getEmployeeByUuid` endpoint, as it allows for a direct lookup by ID instead of iterating through a list ($O(n)$).
+
+* **Exception Handling: Global vs. Controller-Specific**
+    * I chose to implement a global exception handler using `@ControllerAdvice`. Even though the project has only one controller (where a local `@ExceptionHandler` would have worked), the global approach is a better design choice. It centralizes all error-handling logic and keeps the controller code clean.
+
+* **Avoided implementing `EmployeeService`'s interface**
+    * While using an `EmployeeService` interface is a better practice for larger applications, I felt that it would have added unnecessary boilerplate for a this simple project. Hence, I opted for just using the `EmployeeService` as a class.
+
+* **Avoided returning `ResponseEntity` for successful operations in the Controller**
+    * The `createEmployee` endpoint returns a plain `Employee` object. I considered returning a `ResponseEntity<Employee>` with an `HttpStatus.CREATED` (201) status because it is a more specific response description. However, I chose to stick to the return type specified in the original template (and its comments).
+
+---
+---
+
 Please keep the following in mind while working on this challenge:
 * Code implementations will not be graded for **correctness** but rather on practicality
 * Articulate clear and concise design methodologies, if necessary

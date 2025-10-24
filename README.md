@@ -16,6 +16,29 @@ Here are a few of the technical decisions I made/considered while building this 
 * **Avoided returning `ResponseEntity` for successful operations in the Controller**
     * The `createEmployee` endpoint returns a plain `Employee` object. I considered returning a `ResponseEntity<Employee>` with an `HttpStatus.CREATED` (201) status because it is a more specific response description. However, I chose to stick to the return type specified in the original template (and its comments).
 
+
+## Sample Requests
+
+This section provides sample `curl` commands to test and interact with the live API endpoints. The `-s` flag is used for silent mode (to hide the progress meter) and `-i` is used to include the HTTP response headers (e.g. HTTP status code).
+
+```bash
+# Successful HTTP GET Request to fetch all employees. You can pipe it to `jq` for better readability.
+curl -s http://localhost:8080/api/v1/employee/
+curl -s http://localhost:8080/api/v1/employee/ | jq
+
+# Successful HTTP POST request to create a new employee. 
+curl -s -X POST http://localhost:8080/api/v1/employee/ -H "Content-Type: application/json" -d '{"uuid":"11111111-1111-1111-1111-111111111111","firstName":"Bob","lastName":"Watson","salary":65000,"age":28,"jobTitle":"Manager","email":"bob@company.com","contractHireDate":"2024-06-01T00:00:00Z","contractTerminationDate":null}' -i
+
+# Unsuccessful HTTP POST request to create a new employee (provided you ran the previous command already).
+curl -s -X POST http://localhost:8080/api/v1/employee/ -H "Content-Type: application/json" -d '{"uuid":"11111111-1111-1111-1111-111111111111","firstName":"Bob","lastName":"Watson","salary":65000,"age":28,"jobTitle":"Manager","email":"bob@company.com","contractHireDate":"2024-06-01T00:00:00Z","contractTerminationDate":null}' -i
+
+# Successful HTTP GET Request for a specfic employee UUID.
+curl -s http://localhost:8080/api/v1/employee/11111111-1111-1111-1111-111111111111 -i
+# Unsuccessful HTTP GET Request for a specfic employee UUID.
+curl -s http://localhost:8080/api/v1/employee/11111111-1111-1111-1111-111111111112 -i
+
+```
+
 ---
 ---
 
